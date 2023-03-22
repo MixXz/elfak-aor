@@ -1,9 +1,7 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 
------------------- pomeracki regIStar ----------------
------------------------------------------------------- 
-
+-- a) pomeracki registar (u desno)
 ENTITY pom_reg IS 
     GENERIC(n : integer := 8);
     PORT(
@@ -29,13 +27,12 @@ BEGIN
     END PROCESS shift;
 END ARCHITECTURE arch_pom_reg;
 
------------------- kruzni brojac ---------------------
 ------------------------------------------------------ 
-
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
+-- b) kruzni brojac;
 ENTITY counter IS
     GENERIC(n: integer := 4);
     PORT(
@@ -62,13 +59,12 @@ BEGIN
         END PROCESS;
 END ARCHITECTURE arch_counter;
     
------------------- Kolo ------------------------------
 ------------------------------------------------------ 
-
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 
+-- Kolo
 ENTITY unit IS
     GENERIC(
         generic_pattern: std_logic_vector(1 DOWNTO 0);
@@ -83,7 +79,7 @@ ENTITY unit IS
 END ENTITY unit;
 
 ARCHITECTURE arch_unit OF unit IS
-    SIGNAL pom_reg_OUTput: std_logic_vector(31 DOWNTO 0);
+    SIGNAL pom_reg_output: std_logic_vector(31 DOWNTO 0);
     SIGNAL is_match, reset_counter: std_logic;
 BEGIN
     pom_reg: ENTITY WORK.pom_reg(arch_pom_reg)
@@ -107,7 +103,7 @@ BEGIN
         VARIABLE pattern: std_logic_vector(31 DOWNTO 0);
         VARIABLE mask: std_logic_vector(31 DOWNTO 0) := (OTHERS => '0');
     BEGIN 
-        wait UNTIL start = '1';
+        WAIT UNTIL start = '1';
 
         ready <= '0';
         pattern(1 DOWNTO 0) := generic_pattern;
@@ -115,9 +111,9 @@ BEGIN
         count <= (OTHERS => '0');
         reset_counter <= '1';
 
-        wait UNTIL clk'EVENT AND clk = '1'
+        WAIT UNTIL clk'EVENT AND clk = '1'
         
-        for i in 0 to 31 LOOP
+        FOR i IN 0 TO 31 LOOP
             IF (pom_reg_output AND mask) = pattern THEN
                 is_match <= '1';
             ELSE
