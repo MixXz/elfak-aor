@@ -155,40 +155,42 @@ begin
         port map(clk, rst, enable, din, dout, dout_parallel);
     
     process
+        constant half_p: time := 10 ns;
     begin
         clk <= '1';
-        wait for 10 ns;
+        wait for half_p
         clk <= '0';
-        wait for 10 ns;
+        wait for half_p
     end process;
 
         process
         begin
             rst<='1';
             wait for 30 ns;
-            rst<='0';
-            enable<='1';
-            din<=4;
-            wait for 21ns;
-            din<=8;
-            wait for 21ns;
-            din<=1;
-            wait for 21ns;
-            din<=23;
-            wait for 21ns;
-            din<=7;
-            wait for 21ns;
-            din<=5;
-            wait for 21ns;
-            din<=59;
-            wait for 21ns;
-            din<=9;
-            wait for 21ns;
-            din<=5;
-            wait for 21ns;
-            din<=59;
-            wait for 21ns;
-            din<=9;
-            wait for 21ns;
+
+            rst <= '0';
+            enable <= '1';
+            din <= 4;
+            wait for 21 ns;
+            din <= 8;
+            wait for 21 ns;
+            din <= 1;
+            wait for 21 ns;
+            din <= 23;
+            wait for 21 ns;
+            din <= 7;
+            wait for 21 ns;
+            din <= 5;
+            wait for 21 ns;
+            din <= 59;
+            wait for 21 ns;
+            din <= 9;
+            wait for 21 ns;
+            din <= 5;
+            wait for 21 ns;
+            din <= 59;
+            wait for 21 ns;
+            din <= 9;
+            wait for 21 ns;
         end process;
 end architecture arch_testbench;

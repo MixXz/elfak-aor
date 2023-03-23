@@ -97,11 +97,12 @@ begin
     port map(clk, rst, enable, brojevi n_operacija, result);
 
     process 
+        constant half_p: time := 5 ns;
     begin
         clk <= '1';
-        wait for 10 ns;
+        wait for half_p
         clk <= '0';
-        wait for 10 ns;
+        wait for half_p
     end process;
 
     process
@@ -114,17 +115,17 @@ begin
         enable <= '1'
         brojevi <= "00000100000001000000010100000011";
         noperacija <= "100011";
-        wait for 200ns;
+        wait for 200 ns;
 
         rst<='1';
-        wait for 30ns;
+        wait for 30 ns;
 
         --izraz: 4 - 3 + 7 + 0
-        rst<='0';
-        enable<='1';
-        brojevi<="00000100000000110000011100000000";
-        noperacija<="010000";
-        wait for 200ns;
+        rst <= '0';
+        enable <= '1';
+        brojevi <= "00000100000000110000011100000000";
+        noperacija <= "010000";
+        wait for 200 ns;
     end process;
 end architecture arch_testbench;
 
